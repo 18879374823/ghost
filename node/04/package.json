@@ -1,0 +1,14 @@
+{
+  "name": "04",
+  "version": "1.0.0",
+  "description": "完全符合Commonjs规范的目录一般包含如下文件\r     package.json:包描述文件\r     bin：用于存放可执行二进制文件的目录\r     lib：用于存放JavaScript代码的目录\r     doc：用于存放文档的目录\r 在nodejs中，通过npm命令来下载第三方的模块（包）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "md5": "^2.3.0"
+  }
+}
