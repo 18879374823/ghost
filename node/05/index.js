@@ -35,7 +35,7 @@ const fs = require('fs');// 引入fs
 
  /**
   * mkdir：创建目录
-  * 传入三个参数：将创建的目录的路径，目录权限[选题]（读写权限，默认777），回调函数
+  * 传入三个参数：将创建的目录的路径，目录权限[选填]（读写权限，默认777），回调函数
   * 回调函数：一个参数：错误信息
   * fs.mkdir('./css,(err)=>{})
   
@@ -55,6 +55,7 @@ const fs = require('fs');// 引入fs
  * 回调函数：一个参数：错误信息
  * 
  * 如果是已存在文件，则会替换其内容
+ * 文件所在的目录需要已存在，否则会报错
  */
 // fs.writeFile('./css/style.css', '/* hello world */', err => {
 //     if(err){
@@ -113,13 +114,62 @@ const fs = require('fs');// 引入fs
 
  /**
   * rename：重命名      功能：1、重命名；2、移动文件
-  * 两个参数：文件路径，回调函数
-  * 回调函数：两个参数：错误信息，返回的数据
+  * 三个参数：旧文件名，新文件名，回调函数
+  * 回调函数：一个参数：错误信息
   */
- fs.rename('../05', (err, data) => {
-    if(err){
-        console.log(err);
-        return;
-    }
-    console.log(data); // [ 'css', 'index.js', 'package.json', 'README.md' ]
-})
+//  fs.rename('./css/style.css', './css/new_style.css', (err) => {
+//     if(err){
+//         console.log(err);
+//         return;
+//     }
+//     console.log('rename success'); // [ 'css', 'index.js', 'package.json', 'README.md' ]
+// })
+
+
+
+
+/**
+  * rmdir：删除目录
+  * 两个参数：目录，回调函数
+  * 回调函数：一个参数：错误信息
+  * 注意：如果目录里面有文件，则无法删除
+  */
+//  fs.rmdir('./css', (err) => {
+//     if(err){
+//         console.log(err);
+//         return;
+//     }
+//     console.log('rmdir success'); // [ 'css', 'index.js', 'package.json', 'README.md' ]
+// })
+
+
+
+/**
+  * rmdir：删除文件
+  * 两个参数：文件名，回调函数
+  * 回调函数：一个参数：错误信息
+  */
+//  fs.unlink('./css/new_style.css', (err) => {
+//     if(err){
+//         console.log(err);
+//         return;
+//     }
+//     console.log('unlink success'); // [ 'css', 'index.js', 'package.json', 'README.md' ]
+// })
+
+
+// 创建一个目录，并写入一个文件
+// fs.mkdir('./css', err => {
+//     if(err){
+//         console.log(err);
+//         return;
+//     }
+//     console.log('mkdir success');
+//     fs.writeFile('./css/style.css', '/* hello world */', err => {
+//         if(err){
+//             console.log(err);
+//             return;
+//         }
+//         console.log('write succ');
+//     });
+// })

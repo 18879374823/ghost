@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASYNC_AWAIT</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // async await
+    /**
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
+    */
+   
+   /**
+    * 1、async函数
+    *   函数的返回值为promise对象
+    *   promise对象的结果有async函数执行的返回值决定
+   */
+  // 一个简单的函数
+  function fn1() {
+      return 1;
+  }
+  const result1 = fn1(); // 1
+  // 加上async后
+  async function fn2() {
+    //   return 1; // 成功
+    // throw 2; // 失败
+    // return Promise.resolve(3); // 成功
+    return Promise.reject(4); // 失败
+  }
+  const result2 = fn2(); // promise对象
+  // 因此，async返回的是一个promise对象,既然是返回的是promise对象，那么就会有一个成功或者失败的回调，数据是多少，那么我们就要去做处理
+  // async函数返回的promise的结果由函数执行的结果决定
+  result2.then(
+      value => {
+        console.log('onResolved', value);
+      },
+      reason => {
+        console.log('onRejected', reason);
+      }
+  );
+
+  /**
+   * await 表达式
+   *    await右侧是一个表达式，一般为promise对象，但也可以是其他的值
+   *    如果表达式是promise对象，await返回的是promise成功的值
+   *    如果表达式是其他值，直接将此值作为await的返回值
+  */
+    function fn3() {
+        // 右侧一般是一个promise对象，所以这里我们返回一个promise给他
+        // return Promise.resolve(2);
+        return Promise.reject(6);
+    }
+    function fn5(){
+        return 5;
+    }    
+    async function fn4() {
+        // const result3 = fn3(); // 本来fn3() 返回的是一个promise，需要 result3.then() 去获取值并做处理
+        // result3.then(
+        //     value => {},
+        //     reson => {}
+        // )
+
+        // 但是我们只是需要他返回的值，所以我们可以用await
+        // const result3 = await fn3(); // await右侧表达式为promise，得到的结果就是promise成功的value
+        // const result5 = await fn5(); // await右侧不是promise，得到的结果就是值本身
+        // console.log(result3, result5);
+
+        // promise 返回的结果不一定是成功的，也可能是失败的，这里就要用try catch来接收
+        try {
+            const result3 = await fn3();
+            console.log(result3);
+        } catch(error) {
+            console.log('error:',error);
+        }
+    }
+    fn4();
+
+    /**
+     * 注意：
+     *  await 必须写在async函数中，但是async函数中可以没有await
+     *  如果await的promise失败了，就会抛出异常，需要通过try。。。catch来捕获处理
+    */
+</script> 
+</html>
