@@ -11,6 +11,20 @@
     <p>我是添加的内容</p>
 </body>
 <script>
-    const start = '';
+    const gIsQulifiedConfirmReward = true;
+    const unconfirmTotalAmount = 500000;
+    const cConfirmThresh = 5000;
+
+    if (gIsQulifiedConfirmReward && (unconfirmTotalAmount / 100) > cConfirmThresh) {
+                    console.log('2017年以后，每满5,000元时才能进行批次确认');
+                   
+                } else {
+                    if ((unconfirmTotalAmount / 100) < 5000) {
+                        console.log('2017年以后，只有当奖励金额每满5,000元时才能进行批次确认');
+                    } else {
+                        console.log('由于未收到上期发票，所以无法确认金额');
+                    }
+                   
+                }
 </script>
 </html>
