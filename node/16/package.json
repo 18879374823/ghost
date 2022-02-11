@@ -1,0 +1,14 @@
+{
+  "name": "16",
+  "version": "1.0.0",
+  "description": "> Mongoose是在nodejs异步环境下对mongodb进行便捷操作的对象模型工具，mongoose是nodejs的驱动，不能作为其他语言的驱动\r 特点：\r     1、通过关系型数据库的思想来设计非关系型数据库\r     2、基于mongodb驱动，简化操作\r ## mongoose的安装及使用\r     1、安装\r         npm install mongoose --save\r     2、引入并连接数据库\r         var mongoose = require('mongoose');\r         mongoose.connect('mongodb://localhost/test');\r     如果有账户密码需要采用以下连接方式\r         mongoose.connect('mongodb://root:111111@localhost/test');\r     3、定义Schema\r     数据库中的Schema，为数据对象的集合，Schema是mongoose里会用到的一种数据形式，可以理解为表结构的定义，每个Schema会映射到mongodb中的一个collection，他不具备操作数据库的能力\r         var kittySchema = mongoose.Schema({\r             name: String\r         });\r     4、创建数据模型，即生成model。model是由Schema生成的模型，可以对数据库进行操作\r         var Kitten = mongoose.model('Kitten', kittySchema);// 可以传两个参数，也可以传三个参数",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^6.2.1"
+  }
+}

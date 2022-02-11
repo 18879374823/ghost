@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <title>csv</title>
+    <style>
+        .download {
+            display: flex;
+            flex-direction: column;
+        }
+        .download-btn {
+            width: 50px;
+            height: 20px;
+            background-color: #4A9BEF;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        上传文件1：<input type="file" id="file" accept=".csv" onchange="uploadfile();" />
+    </p>
+    <p>
+        上传文件2：<input type="file" id="file1" accept=".xlsx" onchange="uploadfile2();" />
+    </p>
+    <p>
+        上传文件3：<input type="file" id="file3" accept=".csv" onchange="uploadfile3();" />
+    </p>
+    <hr />
+    <div class="download">
+        <div>
+            字段名：<textarea rows="2" cols="100" id="name"></textarea>
+            格式：名字,年龄,颜色
+        </div>
+        <div>
+            表头：<textarea rows="2" cols="100" id="headName"></textarea>
+            格式：name,age,color
+        </div>
+        <div>
+            内容：<textarea rows="20" cols="100" id="content"></textarea>
+            格式：[{"name": "aaa","age": "12","color": "red"},{"name": "bbb","age": "16","color": "yellow"}]
+        </div>
+        <div>
+            下载：<button onclick="downloadCSV();" class="download-btn">下载</button>
+        </div>
+    </div>
+    <input type="date">
+</body>
+<script>
+    var c = '';
+    var b = '';
+    function uploadfile() {
+        let reads = new FileReader();
+        file = document.getElementById('file').files[0];
+        console.log(file);
+        reads.readAsText(file, 'utf-8');
+        /** 
+         *  方法名 参数 描述
+            abort none 中断读取
+            readAsBinaryString file 将文件读取为二进制码
+            readAsDataURL file 将文件读取为 DataURL
+            readAsText file, [encoding] 将文件读取为文本
+
+            readAsText：该方法有两个参数，其中第二个参数是文本的编码方式，默认值为 UTF-8。这个方法非常容易理解，将文件以文本方式读取，读取的结果即是这个文本文件中的内容。
+            readAsBinaryString：该方法将文件读取为二进制字符串，通常我们将它传送到后端，后端可以通过这段字符串存储文件。
+            readAsDataURL：这是例子程序中用到的方法，该方法将文件读取为一段以 data: 开头的字符串，这段字符串的实质就是 Data URL，Data URL是一种将小文件直接嵌入文档的方案。这里的小文件通常是指图像与 html 等格式的文件。
+         * 
+         * 
+         * 
+         * 
+         *  onabort 中断时触发
+            onerror 出错时触发
+            onload 文件读取成功完成时触发
+            onloadend 读取完成触发，无论成功或失败
+            onloadstart 读取开始时触发
+            onprogress 读取中
+        */
+        reads.onloadend = function(e) {
+            console.log(e.target.result);
+            b = e.target.result;
+            const result = e.target.result.split('\n');
+
+            // console.log(result);
+            const resultHead = result[0].split(',');
+            // console.log('onloadend ---> ', resultHead);
+            const newArray = [];
+            result.forEach((item, index) => {
+                newArray.push(item.split(','))
+            });
+            console.log(newArray);
+        }
+
+    }
+    function uploadfile3() {
+        let reads = new FileReader();
+        file = document.getElementById('file3').files[0];
+        console.log(file);
+        reads.readAsText(file, 'utf-8');
+        /** 
+         *  方法名 参数 描述
+            abort none 中断读取
+            readAsBinaryString file 将文件读取为二进制码
+            readAsDataURL file 将文件读取为 DataURL
+            readAsText file, [encoding] 将文件读取为文本
+
+            readAsText：该方法有两个参数，其中第二个参数是文本的编码方式，默认值为 UTF-8。这个方法非常容易理解，将文件以文本方式读取，读取的结果即是这个文本文件中的内容。
+            readAsBinaryString：该方法将文件读取为二进制字符串，通常我们将它传送到后端，后端可以通过这段字符串存储文件。
+            readAsDataURL：这是例子程序中用到的方法，该方法将文件读取为一段以 data: 开头的字符串，这段字符串的实质就是 Data URL，Data URL是一种将小文件直接嵌入文档的方案。这里的小文件通常是指图像与 html 等格式的文件。
+         * 
+         * 
+         * 
+         * 
+         *  onabort 中断时触发
+            onerror 出错时触发
+            onload 文件读取成功完成时触发
+            onloadend 读取完成触发，无论成功或失败
+            onloadstart 读取开始时触发
+            onprogress 读取中
+        */
+        reads.onloadend = function(e) {
+            console.log(e.target.result);
+            c = e.target.result;
+            console.log(b,c,b==c);
+            const result = e.target.result.split('\n');
+            // console.log(result);
+            const resultHead = result[0].split(',');
+            // console.log('onloadend ---> ', resultHead);
+            const newArray = [];
+            result.forEach((item, index) => {
+                newArray.push(item.split(','))
+            });
+            console.log(newArray);
+        }
+
+    }
+
+    function uploadfile2() {
+        const reader = new FileReader();
+        file = document.getElementById('file1').files[0];
+        reader.readAsBinaryString(file);
+        reader.onload = function (e) {
+            const data = e.target.result;
+            // const workbook = XLSX.read(data, {type: 'binary'});
+            console.log('workbook', e);
+            // const Sheet1 = {...workbook.Sheets.Sheet1};
+        };
+    }
+
+    // 下载文件
+    function downloadCSV() {
+        const name = $('#name').val();
+        const headName = $('#headName').val();
+        const content = $('#content').val();
+        const tableData = JSON.parse(content);
+        console.log(name, headName, tableData);
+        downLoad(name,headName,tableData);
+    }
+    function downLoad(title, tableName, data) {
+        // 列标题，逗号隔开，每一个逗号就是隔开一个单元格,一个回车（'\n'）表示一行数据
+        let str = title + '\n';
+        let list = data;
+        const tableNameArray = tableName.replace(/\n/i,'').split(',');
+        list.forEach(item => {
+            let content = '';
+            tableNameArray.forEach(v => {
+                content = content + item[v] + ',';
+            })
+            str = str + content + '\n';
+            
+        })
+        console.log(str);
+        // str += '\n'
+        // encodeURIComponent解决中文乱码
+        let uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(str);
+        // 通过创建a标签实现
+        let link = document.createElement('a');
+        link.href = uri;
+        // 对下载的文件命名
+        link.download = 'download.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+    var testData = '[{"wpc单号":"WPC-20210423-000266","status":3,"状态名称":"申请已审核","创建时间":"2021-04-23 10:44:03","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210425-000277","status":13,"状态名称":"同步申请结果失败","创建时间":"2021-04-25 17:29:49","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210426-000278","status":13,"状态名称":"同步申请结果失败","创建时间":"2021-04-26 14:15:38","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210426-000280","status":13,"状态名称":"同步申请结果失败","创建时间":"2021-04-26 16:19:57","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210426-000283","status":18,"状态名称":"创建EPO订单失败","创建时间":"2021-04-26 17:09:06","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210426-000289","status":13,"状态名称":"同步申请结果失败","创建时间":"2021-04-26 17:21:42","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210426-000290","status":13,"状态名称":"同步申请结果失败","创建时间":"2021-04-26 17:26:30","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210426-000291","status":3,"状态名称":"申请已审核","创建时间":"2021-04-26 18:10:49","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210426-000293","status":13,"状态名称":"同步申请结果失败","创建时间":"2021-04-26 19:27:17","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210427-000294","status":13,"状态名称":"同步申请结果失败","创建时间":"2021-04-27 14:39:27","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210508-000297","status":13,"状态名称":"同步申请结果失败","创建时间":"2021-05-08 16:29:12","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210512-000302","status":1,"状态名称":"申请审核中","创建时间":"2021-05-12 10:22:53","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210512-000307","status":3,"状态名称":"申请已审核","创建时间":"2021-05-12 10:41:31","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210513-000310","status":1,"状态名称":"申请审核中","创建时间":"2021-05-13 16:05:27","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210521-000324","status":3,"状态名称":"申请已审核","创建时间":"2021-05-21 11:54:17","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210826-000329","status":1,"状态名称":"申请审核中","创建时间":"2021-08-26 14:21:34","创建人":"v_hanmeiqi(齐寒梅)"},{"wpc单号":"WPC-20210826-000333","status":3,"状态名称":"申请已审核","创建时间":"2021-08-26 15:13:00","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210831-000342","status":3,"状态名称":"申请已审核","创建时间":"2021-08-31 10:37:27","创建人":"dawnyang(杨春晓)"},{"wpc单号":"WPC-20210901-000350","status":1,"状态名称":"申请审核中","创建时间":"2021-09-01 10:09:34","创建人":"v_hanmeiqi(齐寒梅)"}]'
+</script>
+</html>

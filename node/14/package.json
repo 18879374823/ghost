@@ -1,8 +1,8 @@
 {
-  "name": "11",
+  "name": "14",
   "version": "1.0.0",
-  "description": "> 基于 Node.js 平台，快速、开放、极简的 Web 开发框架,Express 是一个保持最小规模的灵活的 Node.js Web 应用程序开发框架，为 Web 和移动应用程序提供一组强大的功能",
-  "main": "index.js",
+  "description": "",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

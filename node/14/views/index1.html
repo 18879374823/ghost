@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/base.css">
+    <title>EJS 模板引擎</title>
+</head>
+<body>
+    <h1>EJS 模板引擎</h1>
+    <h3>绑定数据</h3>
+    <p><%=title%></p>
+    <hr />
+
+    <h3>输出html</h3>
+    <p><%-html%></p>
+    <hr />
+    <h3>条件判断</h3>
+    <%if(flag){%>
+        <p>flag 是true</p>
+    <%}else{%>
+        <p>flag 是false</p>
+    <%}%>
+    <hr />
+    <h3>循环遍历</h3>
+    <ul>
+        <%for(let i=0; i<list.length; i++){%>
+            <li><%=list[i].desc%></li>
+        <%}%>
+    </ul>
+    <hr />
+
+</body>
+</html>

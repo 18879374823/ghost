@@ -68,3 +68,32 @@ req.session.name
     req.session.user = '';  // 把session值设置为空
     3、destroy
     req.session.destroy();
+
+
+# 多服务器负载均衡，session保存到数据库中
+### 以mongo数据库为例，使用步骤
+1、安装express-session和concent-mongo模块
+npm install express-session --save
+npm install connect-mongo --save
+2、引入模块
+const session = require('express-session');
+const MongoStore = require('concent-mongo')(session);
+3、配置中间件
+app.use(session({
+    secret: 'keyboard cat', // 用于生成服务器端的签名，自定义
+    name: "test", // 修改session对应cookie的名称
+    resave: false, // 强制存储session，即使没有变化
+    saveUninitialized: true, // 强制将未初始化的session存储
+    cookie: { 
+        maxAge: 60 *1000, // 过期时间
+        secure: false
+     }, // cookie的配置，参考cookie的
+    rolling: true, // 在每次请求时强行设置cookie，充值cookie的过期时间（默认false）
+
+    // 设置db库
+    store: new MongoStore({
+        url: 'mongodb://root:111111@127.0.0.1:27017/test',// mongodb://user12345:foobar@localhost/test-app?authSource=admin&w=1:@前面是密码:用户名，没有可以不写
+        touchAfter: 24 * 3600, // 不管发出了多少请求，24小时内只更新一次session，除非你改变了session
+      })
+  }))
+4、设置成功后，会在库中有一个sessions的表，session就存储在这个表中，且有效时间与maxAge设置时间一致
