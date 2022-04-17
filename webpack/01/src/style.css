@@ -1,0 +1,13 @@
+/* css支持自定义字体名
+@font-face {
+    font-family: 'iconfont'; 字体的名字
+    src: url('') format('truetype'); 字体的地址  类型为truetype
+}
+*/
+
+.hello {
+    color: red;
+}
+.bg_block {
+    background-image: url('./assets/1.png');
+}

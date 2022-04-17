@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入之后，全局会多了一个 VUE 对象 -->
+    <script src="./vuejs/vue.js"></script>
+    <title>事件修饰符</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <h1>学校名称： {{ name }}</h1>
+        <a href="www.baidu.com" @click.prevent="showInfo">click</a>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+
+        // 创建实例，并配置
+        const vm = new Vue({
+            el: '#root', // 用于指定当前实例为哪个容器服务，值一般为css选择器字符串
+            // data中用于存储数据，数据供el指定的容器使用
+            data: {
+                name: 'Vue 学习',
+            },
+            // 方法
+            methods: {
+                showInfo(event) {
+                    alert('你好');
+                },
+            }
+        })
+        console.log(vm);
+    </script>
+</body>
+</html>

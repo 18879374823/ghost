@@ -1,0 +1,18 @@
+/*!*****************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/style.css ***!
+  \*****************************************************************/
+/* css支持自定义字体名
+@font-face {
+    font-family: 'iconfont'; 字体的名字
+    src: url('') format('truetype'); 字体的地址  类型为truetype
+}
+*/
+
+.hello {
+    color: red;
+}
+.bg_block {
+    background-image: url(../images/3fc3b11e16fe9e505a30.png);
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUvMzllNzQ5OTk2OTVkY2VjNDY2MGUuY3NzIiwibWFwcGluZ3MiOiI7OztBQUFBOzs7OztDQUtDOztBQUVEO0lBQ0ksVUFBVTtBQUNkO0FBQ0E7SUFDSSx5REFBdUM7QUFDM0MsQyIsInNvdXJjZXMiOlsid2VicGFjazovLzAxLy4vc3JjL3N0eWxlLmNzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKiBjc3PmlK/mjIHoh6rlrprkuYnlrZfkvZPlkI1cbkBmb250LWZhY2Uge1xuICAgIGZvbnQtZmFtaWx5OiAnaWNvbmZvbnQnOyDlrZfkvZPnmoTlkI3lrZdcbiAgICBzcmM6IHVybCgnJykgZm9ybWF0KCd0cnVldHlwZScpOyDlrZfkvZPnmoTlnLDlnYAgIOexu+Wei+S4unRydWV0eXBlXG59XG4qL1xuXG4uaGVsbG8ge1xuICAgIGNvbG9yOiByZWQ7XG59XG4uYmdfYmxvY2sge1xuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybCgnLi9hc3NldHMvMS5wbmcnKTtcbn0iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=*/

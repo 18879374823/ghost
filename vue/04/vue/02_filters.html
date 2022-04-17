@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vuejs/vue.js"></script>
+    <title>收集表单数据</title>
+</head>
+<body>
+    <div id="root">
+        <span>原本是：{{ time }}</span><br>
+        <!-- 过滤器可以用在两个地方：双花括号插值和 v-bind 表达式 -->
+        <span>处理后: {{ time | timeFormate }}</span><br>
+        <!-- 也可以传参,第一个参数是管道符前面的内容，这是不变的，传入的参数从第二个开始 -->
+        <span>传参：{{ time | addVal('o') }}</span><br>
+        <!-- 连续使用 -->
+        <span>连续使用: {{ time | timeFormate | addVal('o') }}</span>
+        <!-- 加上全局 -->
+        <span>连续使用: {{ time | timeFormate | addVal('o') | addValK }}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        // 全局过滤器
+        Vue.filter('addValK', function() {
+            return 'k'
+        })
+       
+        const vm = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    time: 1234567890000
+                }
+            },
+            // 局部过滤器
+            filters: {
+                timeFormate(value) {
+                    return 'hell';
+                },
+                addVal(val ,str) {
+                    return val+str;
+                }
+            }
+            
+            
+        })
+    </script>
+</body>
+</html>

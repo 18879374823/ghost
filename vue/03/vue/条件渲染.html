@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入之后，全局会多了一个 VUE 对象 -->
+    <script src="./vuejs/vue.js"></script>
+    <title>条件渲染</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <!-- 使用v-show做条件渲染 -->
+        <div v-show="false">条件渲染</div>
+
+        <!-- 使用v-if做条件渲染 -->
+        <div v-if="false">条件渲染</div>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+       
+        const vm = new Vue({
+            el: '#root',
+            data() {
+            }
+            
+        })
+    </script>
+</body>
+</html>
