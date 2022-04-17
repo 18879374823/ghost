@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入之后，全局会多了一个 VUE 对象 -->
+    <script src="./vuejs/vue.js"></script>
+    <style>
+        .base {
+            height: 100px;
+            width: 100px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .normal {
+            color: blue;
+        }
+        .sad {
+            color: green;
+        }
+        .happy {
+            color: yellowgreen;
+        }
+
+        .class_1 {
+            /* background-color: aquamarine; */
+            background:-webkit-gradient(linear, 0 0, 0 100%, from(#2074af), to(green));
+        }
+        .class_2 {
+            border-radius: 50%;
+        }
+        .class_3 {
+            color: blueviolet;
+        }
+    </style>
+    <title>绑定css样式</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <!-- 绑定class样式--字符串写法，适用于：样式类名不确定，需要动态指定 -->
+        <div class="base" :class="mood" @click="changeClass">样式哈哈哈</div>
+        <br />
+        <!-- 绑定class样式--数组写法，适用于：要绑定的样式个数不确定，名字也不确定 -->
+        <div class="base" :class="classArr" @click="changeClass">样式哈哈哈</div>
+        <br />
+        <!-- 绑定class样式--数组写法，适用于：要绑定的样式个数确定，名字也确定 -->
+        <div class="base" :class="objArr" @click="changeClass">样式哈哈哈</div>
+
+
+        <div class="base" :style="styleObj" @click="changeClass">样式哈哈哈</div>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+       
+        const vm = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    mood: 'normal',
+                    classArr: ['class_1', 'class_2', 'class_3'],
+                    objArr: {
+                        class_1: false,
+                        class_2: false
+                    },
+
+                    styleObj: {
+                        fontSize: '20px',
+                    }
+                }
+            },
+            methods: {
+                changeClass() {
+                    this.mood = 'sad';
+                }
+            }
+            
+        })
+    </script>
+</body>
+</html>

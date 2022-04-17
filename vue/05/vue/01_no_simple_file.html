@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vuejs/vue.js"></script>
+    <title>非单文件组件</title>
+</head>
+<body>
+    <div id="root">
+        <!-- 编写组件标签 -->
+        <school></school>
+        <hr />
+        <student></student>
+        <hr />
+    </div>
+
+    <div id="root2">
+        <hello></hello>
+    </div>
+    <hr />
+    <!-- 组件嵌套 -->
+    <div id="manyComponents">
+        <!-- 甚至app标签都不需要在这里，可以直接在配置template属性 -->
+        <!-- <app></app> -->
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    /**
+     * 一：创建组件
+     * 二：注册组件
+     * 三：编写组件标签
+    */
+    // 创建一个组件 school
+    const school = Vue.extend({
+        name: 'cusName', // 可以使用name配置项指定组件在开发者工具中呈现的名字
+        template:`<div>
+                <h2>学校名称：{{ schoolName }}</h2>
+                <h2>学校地址：{{ schoolAddress }}</h2>
+                <button @click="showSchoolName">点我提示学校名</button>
+            </div>`,
+        // el: '#root', // 组件定义时，一定不要写el配置，因为最终所有的组件都要被一个vm管理，由vm决定服务哪个地方
+        data() {
+            return {
+                schoolName: '开心就好大学',
+                schoolAddress: '深圳',
+            }
+        },
+        methods: {
+            showSchoolName() {
+                alert(this.schoolName);
+            }
+        }
+    });
+    // 创建一个student组件
+    const student = Vue.extend({
+        template:`<div>
+                <h2>学生名字：{{ studentName }}</h2>
+                <h2>学生年龄：{{ studentAge }}</h2>
+            </div>`,
+        data() {
+            return {
+                studentName: '张三',
+                studentAge: 18,
+            }
+        },
+    });
+
+    const vm = new Vue({
+        el: '#root',
+        // 注册组件（局部注册）
+        components: {
+            school,
+            student,
+            // 
+        },
+        data() {
+            return {}
+        },
+    });
+
+    const hello = Vue.extend({
+        template: `<div><h2>{{ tom }}</h2></div>`,
+        data() {
+            return {
+                tom: '你好'
+            }
+        }
+    })
+    // 全局注册组件
+    Vue.component('hello', hello);
+    // 全局组件
+    const vm2 = new Vue({
+        el: '#root2',
+        data() {
+            return {}
+        },
+    });
+</script>
+
+<!-- 组件嵌套演示 -->
+<script>
+    const hello2 = Vue.extend({
+        template:`<div>
+                <h2>{{ hello }}</h2>
+            </div>`,
+        data() {
+            return {
+                hello: '你好'
+            }
+        },
+    });
+    // 创建一个student2组件
+    const student2 = Vue.extend({
+        template:`<div>
+                <h2>学生名字：{{ studentName }}</h2>
+                <h2>学生年龄：{{ studentAge }}</h2>
+            </div>`,
+        data() {
+            return {
+                studentName: '张三',
+                studentAge: 18,
+            }
+        },
+    });
+    // 定义school2组件
+    const school2 = Vue.extend({
+        template:`<div>
+                <h2>学校名称：{{ schoolName }}</h2>
+                <h2>学校地址：{{ schoolAddress }}</h2>
+                <student2></student2>
+            </div>`,
+        data() {
+            return {
+                schoolName: '开心就好大学',
+                schoolAddress: '深圳',
+            }
+        },
+        components: {
+            student2
+        }
+    });
+
+    // 定义app组件
+    const app = Vue.extend({
+        components: {
+            school2,
+            hello2
+        },
+        template: `<div>
+                <school2></school2>
+                <hello2></hello2>
+            </div>`
+    })
+
+    new Vue({
+        template: '<app></app>', // 标准化就是这样写的
+        el: '#manyComponents',
+        components: {
+            app
+        },
+        data() {
+            return {}
+        },
+    });
+</script>
+</html>

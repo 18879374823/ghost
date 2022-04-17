@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vuejs/vue.js"></script>
+    <title>列表渲染</title>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+        <input type="text" placeholder="请输入名字" v-model="keyWord" />
+        <button @click="sortType=2">年龄升序</button>
+        <button @click="sortType=1">年龄降序</button>
+        <button @click="sortType=0">原顺序</button>
+        <ul>
+            <li v-for="(p, index) in filterPersons" :key="p.id">
+                {{ p.name }}-{{ p.age }}
+            </li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+       
+        const vm = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    keyWord: '',
+                    sortType: 0, // 0:原顺序 1-降序 2-升序
+                    persons: [
+                        {
+                            id: '001',
+                            name: '马冬梅',
+                            age: 18,
+                            sex: '女'
+                        },
+                        {
+                            id: '002',
+                            name: '周冬雨',
+                            age: 19,
+                            sex: '女'
+                        },
+                        {
+                            id: '003',
+                            name: '周杰伦',
+                            age: 20,
+                            sex: '男'
+                        },
+                        {
+                            id: '004',
+                            name: '温兆伦',
+                            age: 21,
+                            sex: '男'
+                        },
+                    ],
+                    // filterPersons: [],
+                }
+            },
+            // 用watch写(不建议)
+            watch: {
+                /**
+                 * 这里不能改变原数据，因为一旦改了，则后面的过滤都是在修改后的数据上进行的，会导致越搜索越少的情况，所以这里要用另一个参数来接收
+                 * 用另一个参数来接收时，会出现一开始无数据的情况，这里可以配置immediate: true，使其在一开始就赋值
+                 * str.indexOf(''):返回0
+                */
+                // keyWord: {
+                //     immediate: true,
+                //     handler(val) {
+                //         this.filterPersons = this.persons.filter( (item) => {
+                //             return item.name.indexOf(val) !== -1;
+                //         })
+                //     }
+                // }
+            },
+            // 用计算属性来写（建议）
+            computed: {
+                // filterPersons() {
+                //     return this.persons.filter( (item) => {
+                //         return item.name.indexOf(this.keyWord) !== -1;
+                //     })
+                // },
+
+                // 加上排序的
+                filterPersons() {
+                    const arr =  this.persons.filter( (item) => {
+                        return item.name.indexOf(this.keyWord) !== -1;
+                    });
+                    if(this.sortType) {
+                        arr.sort((p1, p2) => {
+                            return this.sortType === 1 ? p1.age - p2.age : p2.age - p1.age;
+                        })
+                    };
+                    return arr;
+                },
+
+            },
+            methods: {
+                
+            }
+            
+        })
+    </script>
+</body>
+</html>
